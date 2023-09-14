@@ -38,12 +38,12 @@ Replace `<benchmark_name>` with the desired benchmark's name, for example `expre
 
 ### Output:
 
-On completion of the benchmark, a detailed report will be saved as `result_<benchmark_name>_<YYYY-MM-DD>.txt`. The report will cover:
+On completion of the benchmark, a detailed report will be saved as `result/<benchmark_name>_<YYYY-MM-DD>.txt`. The report will cover:
 
 - Versions of the tested runtimes.
 - Different concurrency levels used.
-- Comprehensive benchmark results, indicating requests per second, average latency, and other relevant metrics.
 
+Comprehensive benchmark results, indicating requests per second, average latency, and other relevant metrics for each benchmark iteration will be outputed in `result/<benchmark_name>_<YYYY-MM-DD>.txt`
 
 ## How the Benchmarking Works:
 
@@ -53,7 +53,7 @@ The benchmarking process employs the following methodology:
   
 2. **Runtime Detection**: For each supported runtime (Node.js, Deno, Bun.js), the script looks for a general `server.js` file or a runtime-specific variant such as `server_node.js`. This provides flexibility in using a common script or runtime-optimized implementations.
 
-3. **Server Boot Up**: For each runtime, the server is started, and it broadcasts the endpoints that are available for benchmarking. This ensures dynamic endpoint detection and avoids hardcoding.
+3. **Server Boot Up**: For each runtime, the server is started, and it broadcasts the endpoints that are available for benchmarking.
 
 4. **Benchmark Execution**: For each detected endpoint and for varying concurrency levels, the `siege` tool is used to bombard the server and record performance metrics. The results, including requests per second, average latency, and more, are then logged.
 
@@ -63,7 +63,7 @@ The benchmarking process employs the following methodology:
 
 1. **Supported Runtimes**: Ensure that you have Node.js, Deno, and Bun.js installed and available in your system's PATH.
 
-2. **Siege**: The benchmarking relies on the `siege` tool. You can install it through your operating system's package manager. For instance, on Ubuntu, you can use `sudo apt-get install siege`.
+2. **Siege**: The benchmarking relies on the `siege` tool. A recent version supporting the `--json-output`-flag is required. You find the latest version [here](https://github.com/JoeDog/siege).
 
 3. **Permissions**: Ensure the `benchmark.sh` script has execute permissions. You can set this using the command: `chmod +x benchmark.sh`.
 

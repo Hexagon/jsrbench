@@ -1,6 +1,6 @@
 import express from 'express';
+
 const app = express();
-const port = 3131;
 
 // Implementation based of example 4 from https://flexiple.com/javascript/isprime-javascript/
 // 
@@ -55,8 +55,9 @@ app.get('/compute-prime', (_req, res) => {
 // Collect endpoints in an array
 const endpoints = ['/static', '/json', '/compute-prime'];
 
-app.listen(port, () => {
-    // Output endpoints in a parsable format
-    const fullEndpoints = endpoints.map(endpoint => `http://localhost:${port}${endpoint}`).join(",");
-    console.log(`BENCHMARKABLE_ENDPOINTS:${fullEndpoints}`);
+// port 0 = automatically assign
+const server = app.listen(0, () => {
+    // Output endpoints in JSON format
+    const fullEndpoints = endpoints.map(endpoint => `http://127.0.0.1:${server.address().port}${endpoint}`);
+    console.log(JSON.stringify({ BENCHMARKABLE_ENDPOINTS: fullEndpoints }));
 });
