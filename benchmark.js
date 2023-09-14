@@ -2,6 +2,8 @@ import { execSync, exec, spawn } from 'node:child_process';
 import { existsSync, writeFileSync, appendFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
+const allResults = [];
+
 const SIEGE_TIME = "2S";
 const OUTPUT_FOLDER = "result";
 const BENCHMARK_NAME = process.argv[2];
@@ -102,10 +104,21 @@ const runTest = async (runtime, concurrency, endpoint) => {
     const RESULT_FILE = join(OUTPUT_FOLDER, OUTPUT_SUBFOLDER, runtime, OUTPUT_FILE_NAME);
 
     mkdirSync(dirname(RESULT_FILE), { recursive: true });
-    const siegeCommand = `siege --json-output -c ${concurrency} -t ${SIEGE_TIME} ${endpoint} >> ${RESULT_FILE}`;
+    const siegeCommand = `siege --json-output -c ${concurrency} -t ${SIEGE_TIME} ${endpoint}`;
     console.log(`Calling siege: ${siegeCommand}`)
     await new Promise(resolve => setTimeout(resolve, 2000));  // Wait for 2 seconds
-    await execSiege(siegeCommand, 15000);  // 15 seconds timeout
+    
+    const siegeOutput = await execSiege(siegeCommand, 15000);  // 15 seconds timeout
+    const siegeResult = JSON.parse(siegeOutput);
+    
+    allResults.push({
+        Runtime: runtime,
+        Concurrency: concurrency,
+        Endpoint: endpoint,
+        TransactionRate: siegeResult.transaction_rate
+    });
+    
+    writeFileSync(RESULT_FILE, siegeOutput);
     console.log(`Results written to ${RESULT_FILE}`);
 };
 
@@ -142,6 +155,8 @@ Siege Version: ${getSiegeVersion()}
         server.kill();  // This will send the default 'SIGTERM'
         process.kill(-server.pid);  // This will send 'SIGTERM' to the entire process group
     }
+    console.log("Benchmark Summary:");
+    console.table(allResults);
     console.log(`Benchmarking completed.`);
 };
 
