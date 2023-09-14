@@ -32,18 +32,18 @@ npm install
 
 Then, to execute a specific benchmark:
 
-    ./benchmark.sh <benchmark_name>
+`node benchmark.js <benchmark_name>``
 
 Replace `<benchmark_name>` with the desired benchmark's name, for example `express`.
 
 ### Output:
 
-On completion of the benchmark, a detailed report will be saved as `result/<benchmark_name>_<YYYY-MM-DD>.txt`. The report will cover:
+While running a benchmark, status will be printed on the console:
 
 - Versions of the tested runtimes.
 - Different concurrency levels used.
 
-Comprehensive benchmark results, indicating requests per second, average latency, and other relevant metrics for each benchmark iteration will be outputed in `result/<benchmark_name>_<YYYY-MM-DD>.txt`
+While comprehensive benchmark results, indicating requests per second, average latency, and other relevant metrics for each benchmark iteration will be written to `result/<benchmark_name>_<YYYY-MM-DD>/<runtime>/<endpoint>_<concurrency>.txt`
 
 ## How the Benchmarking Works:
 
@@ -64,8 +64,6 @@ The benchmarking process employs the following methodology:
 1. **Supported Runtimes**: Ensure that you have Node.js, Deno, and Bun.js installed and available in your system's PATH.
 
 2. **Siege**: The benchmarking relies on the `siege` tool. A recent version supporting the `--json-output`-flag is required. You find the latest version [here](https://github.com/JoeDog/siege).
-
-3. **Permissions**: Ensure the `benchmark.sh` script has execute permissions. You can set this using the command: `chmod +x benchmark.sh`.
 
 ## Contribution:
 
