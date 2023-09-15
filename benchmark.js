@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 
 const allResults = [];
 
-const SIEGE_TIME = "2S";
+const SIEGE_TIME = "10S";
 const OUTPUT_FOLDER = "result";
 const BENCHMARK_NAME = process.argv[2];
 const TODAY_DATE = new Date().toISOString().split('T')[0];

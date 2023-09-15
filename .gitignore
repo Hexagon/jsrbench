@@ -9,3 +9,6 @@ node_modules
 # Lock files
 package-lock.json
 *.lockb
+
+# WIP
+benchmarks/native

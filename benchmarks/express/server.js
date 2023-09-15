@@ -53,7 +53,7 @@ app.get('/compute-prime', (_req, res) => {
 });
 
 // Collect endpoints in an array
-const endpoints = ['/static', '/json', '/compute-prime'];
+const endpoints = ['/static/index.html', '/json', '/compute-prime'];
 
 // port 0 = automatically assign
 const server = app.listen(0, () => {
