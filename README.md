@@ -14,6 +14,10 @@ Currently, the suite includes the following benchmarks:
 
 1. **Express.js Benchmark**: 
     - Express.js is a leading web server framework. For this benchmark, Express.js is utilized as it is compatible across all three runtimes, ensuring an authentic 'apples-to-apples' comparison.
+2. **Native Benchmark**: 
+    - Uses the best method of each runtime to serve the requests.
+3. **Minimal Benchmark**: 
+    - Uses a very minimal best method of each runtime to serve the requests.
 
 ### Adding More Benchmarks:
 
