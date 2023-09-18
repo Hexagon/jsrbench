@@ -1,0 +1,6 @@
+{
+    "type": "module",
+    "dependencies": {
+        "@hexagon/base64": "^1.1.28"
+    }
+}
