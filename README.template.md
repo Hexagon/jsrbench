@@ -12,48 +12,7 @@ This repository hosts Hexagon's **JavaScript Runtime Benchmark**. The primary ob
 
 The tests are executed by GitHub Actions periodically, using the latest version of each runtime:
 
-```
-JavaScript Runtime Benchmark Report
-Benchmark: express
-Date: 2023-10-12
-Node Version: node v20.8.0
-Deno Version: deno 1.37.1 (release, x86_64-unknown-linux-gnu)
-Bun Version: bun v1.0.6
-Siege Version: SIEGE 4.1.7-b5
-```
-
-### Summary
-
-
-| Runtime | Average Transaction Rate | Difference from Reference |
-| --- | --- | --- |
-| Node.js | 880.91 | 73.08% |
-| Deno | 1205.36 | 100% |
-| Bun | 1671.81 | 138.70% |
-
-
-### Detailed result
-
-| Runtime | Concurrency | Endpoint | TransactionRate |
-| --- | --- | --- | --- |
-| node | 10 | http://127.0.0.1:39719/static/index.html | 554.71 |
-| node | 100 | http://127.0.0.1:39719/static/index.html | 652.27 |
-| node | 10 | http://127.0.0.1:39719/json | 989.14 |
-| node | 100 | http://127.0.0.1:39719/json | 945.34 |
-| node | 10 | http://127.0.0.1:39719/compute-prime | 1056.57 |
-| node | 100 | http://127.0.0.1:39719/compute-prime | 1087.41 |
-| deno | 10 | http://127.0.0.1:35903/static/index.html | 618.36 |
-| deno | 100 | http://127.0.0.1:35903/static/index.html | 639.8 |
-| deno | 10 | http://127.0.0.1:35903/json | 1531.82 |
-| deno | 100 | http://127.0.0.1:35903/json | 1542.71 |
-| deno | 10 | http://127.0.0.1:35903/compute-prime | 1145.82 |
-| deno | 100 | http://127.0.0.1:35903/compute-prime | 1753.65 |
-| bun | 10 | http://127.0.0.1:54897/static/index.html | 1235.83 |
-| bun | 100 | http://127.0.0.1:54897/static/index.html | 1323.62 |
-| bun | 10 | http://127.0.0.1:54897/json | 1693.91 |
-| bun | 100 | http://127.0.0.1:54897/json | 2629.15 |
-| bun | 10 | http://127.0.0.1:54897/compute-prime | 1672.04 |
-| bun | 100 | http://127.0.0.1:54897/compute-prime | 1476.32 |
+<!BENCHMARKRESULT!>
 
 ## Benchmarks:
 

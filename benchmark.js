@@ -1,5 +1,5 @@
 import { execSync, exec, spawn } from 'node:child_process';
-import { existsSync, writeFileSync, appendFileSync, mkdirSync } from 'node:fs';
+import { existsSync, writeFileSync, readFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
 const allResults = [];
@@ -122,6 +122,21 @@ const runTest = async (runtime, concurrency, endpoint) => {
     console.log(`Results written to ${RESULT_FILE}`);
 };
 
+const generateMarkdownTable = (data) => {
+    const headerRow = Object.keys(data[0]);
+    const tableRows = data.map((row) => Object.values(row));
+    const tableMarkdown = `| ${headerRow.join(' | ')} |\n| ${'--- | '.repeat(headerRow.length - 1)}--- |\n${
+        tableRows.map((row) => `| ${row.join(' | ')} |`).join('\n')
+    }`;
+    return tableMarkdown;
+};
+
+const calculateAverage = (data, runtime) => {
+    const runtimeData = data.filter((row) => row.Runtime === runtime);
+    const sum = runtimeData.reduce((acc, row) => acc + row.TransactionRate, 0);
+    return (sum / runtimeData.length).toFixed(2);
+};
+
 const main = async () => {
     if (process.argv.length !== 3) {
         console.log("Usage: node benchmark.mjs <benchmark_name>");
@@ -137,9 +152,8 @@ Node Version: ${getNodeVersion()}
 Deno Version: ${getDenoVersion()}
 Bun Version: ${getBunVersion()}
 Siege Version: ${getSiegeVersion()}
---------------------------
 `;
-    console.log(header);
+    console.log(header + "\n--------------------------");
 
     const runtimes = ["node", "deno", "bun"];
     for (const runtime of runtimes) {
@@ -155,8 +169,39 @@ Siege Version: ${getSiegeVersion()}
         server.kill();  // This will send the default 'SIGTERM'
         process.kill(-server.pid);  // This will send 'SIGTERM' to the entire process group
     }
+
     console.log("Benchmark Summary:");
     console.table(allResults);
+
+    console.log("Writing benchmark result to README.md");
+
+
+    // Read template
+    const template = await readFileSync('README.template.md', 'utf-8');
+
+    // Generate Markdown for a basic result table
+    const tableMarkdown = generateMarkdownTable(allResults);
+
+    // Calculate average scores
+    const averageScores = runtimes.reduce((acc, runtime) => {
+        acc[runtime] = calculateAverage(allResults, runtime);
+        return acc;
+    }, {});
+
+    // Generate Markdown for the new table
+    const averageTableMarkdown = `
+| Runtime | Average Transaction Rate | Difference from Reference |
+| --- | --- | --- |
+| Node.js | ${averageScores.node} | ${(averageScores.node / averageScores.deno * 100).toFixed(2)}% |
+| Deno | ${averageScores.deno} | 100% |
+| Bun | ${averageScores.bun} | ${(averageScores.bun / averageScores.deno * 100).toFixed(2)}% |
+`;
+
+    const outputMarkdown = template.replace('<!BENCHMARKRESULT!>', "```" + header + "```\n\n### Summary\n\n" + averageTableMarkdown + "\n\n### Detailed result\n\n" + tableMarkdown);
+
+    writeFileSync('README.md', outputMarkdown);
+
+
     console.log(`Benchmarking completed.`);
 };
 

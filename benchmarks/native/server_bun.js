@@ -1,8 +1,6 @@
 import { checkPrime } from "../../common/prime.js";
-import { longRawString } from "../../common/string.js";
-import { base64 } from "@hexagon/base64";
 
-const endpoints = ['/static', '/base64', '/regex', '/json', '/compute-prime'];
+const endpoints = ['/static', '/regex', '/json', '/compute-prime'];
 
 // Start a HTTP server using Bun.serve
 const server =  Bun.serve({ 
@@ -31,15 +29,6 @@ const server =  Bun.serve({
                 }
               });
         }
-        break;
-      case "/base64":
-        const b64string = base64.fromString(longRawString);
-        return new Response(b64string, {
-            status: 200,
-            headers: {
-                "Cache-Control": "no-transform"
-            }
-        });
         break;
       case "/json":
         const jsonResponse = {

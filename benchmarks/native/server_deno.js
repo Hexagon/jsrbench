@@ -1,8 +1,6 @@
 import { checkPrime } from "../../common/prime.js";
-import { longRawString } from "../../common/string.js";
-import base64 from "https://deno.land/x/b64@1.1.28/src/base64.js";
 
-const endpoints = ['/static', '/base64', '/regex', '/json', '/compute-prime'];
+const endpoints = ['/static', '/regex', '/json', '/compute-prime'];
 
 // Start a HTTP server using Deno.serve
 const server =  Deno.serve({ 
@@ -34,16 +32,6 @@ const server =  Deno.serve({
         }
         break;
         
-        case "/base64":
-          const b64string = base64.fromString(longRawString);
-          return new Response(b64string, {
-              status: 200,
-              headers: {
-                  "Cache-Control": "no-transform"
-              }
-          });
-          break;
-    
           case "/regex":
             const mail = "example-email-address@hexagon.example-testing.wat";
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

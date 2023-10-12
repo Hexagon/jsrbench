@@ -1,11 +1,9 @@
 import * as http from "node:http";
 import * as fs from "node:fs";
 import * as url from "node:url";
-import { base64 } from "@hexagon/base64";
 import { checkPrime } from "../../common/prime.js";
-import { longRawString } from "../../common/string.js";
 
-const endpoints = ['/static', '/base64', '/regex', '/json', '/compute-prime'];
+const endpoints = ['/static', '/regex', '/json', '/compute-prime'];
 
 const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
@@ -24,12 +22,6 @@ const server = http.createServer((req, res) => {
                 }
             });
             break;
-        case "/base64":
-            const b64string = base64.fromString(longRawString);
-            res.writeHead(200,undefined,{"Cache-Control": "no-transform"});
-            res.end(b64string);
-            break;
-            
         case '/json':
             const jsonResponse = {
                 message: "Hello, World!",
