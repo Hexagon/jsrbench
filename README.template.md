@@ -10,7 +10,7 @@ This repository hosts Hexagon's **JavaScript Runtime Benchmark**. The primary ob
 
 ## Latest automated results:
 
-The tests are executed by GitHub Actions periodically, using the latest version of each runtime:
+Latest results:
 
 <!BENCHMARKRESULT!>
 

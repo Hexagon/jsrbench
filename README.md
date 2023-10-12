@@ -10,7 +10,7 @@ This repository hosts Hexagon's **JavaScript Runtime Benchmark**. The primary ob
 
 ## Latest automated results:
 
-The tests are executed by GitHub Actions periodically, using the latest version of each runtime:
+Latest results:
 
 ```
 JavaScript Runtime Benchmark Report
@@ -25,35 +25,35 @@ Siege Version: SIEGE 4.1.7-b5
 ### Summary
 
 
-| Runtime | Average Transaction Rate | Difference from Reference |
-| --- | --- | --- |
-| Node.js | 880.91 | 73.08% |
-| Deno | 1205.36 | 100% |
-| Bun | 1671.81 | 138.70% |
-
+    | Runtime | Average Transaction Rate | Difference from Reference |
+    | --- | --- | --- |
+    | node | 1278.72 | 46.78% |
+| deno | 1677.44 | 61.37% |
+| bun | 2285.23 | 83.61% |
+    
 
 ### Detailed result
 
 | Runtime | Concurrency | Endpoint | TransactionRate |
 | --- | --- | --- | --- |
-| node | 10 | http://127.0.0.1:39719/static/index.html | 554.71 |
-| node | 100 | http://127.0.0.1:39719/static/index.html | 652.27 |
-| node | 10 | http://127.0.0.1:39719/json | 989.14 |
-| node | 100 | http://127.0.0.1:39719/json | 945.34 |
-| node | 10 | http://127.0.0.1:39719/compute-prime | 1056.57 |
-| node | 100 | http://127.0.0.1:39719/compute-prime | 1087.41 |
-| deno | 10 | http://127.0.0.1:35903/static/index.html | 618.36 |
-| deno | 100 | http://127.0.0.1:35903/static/index.html | 639.8 |
-| deno | 10 | http://127.0.0.1:35903/json | 1531.82 |
-| deno | 100 | http://127.0.0.1:35903/json | 1542.71 |
-| deno | 10 | http://127.0.0.1:35903/compute-prime | 1145.82 |
-| deno | 100 | http://127.0.0.1:35903/compute-prime | 1753.65 |
-| bun | 10 | http://127.0.0.1:54897/static/index.html | 1235.83 |
-| bun | 100 | http://127.0.0.1:54897/static/index.html | 1323.62 |
-| bun | 10 | http://127.0.0.1:54897/json | 1693.91 |
-| bun | 100 | http://127.0.0.1:54897/json | 2629.15 |
-| bun | 10 | http://127.0.0.1:54897/compute-prime | 1672.04 |
-| bun | 100 | http://127.0.0.1:54897/compute-prime | 1476.32 |
+| node | 10 | http://127.0.0.1:45123/static/index.html | 1297.31 |
+| node | 100 | http://127.0.0.1:45123/static/index.html | 961.06 |
+| node | 10 | http://127.0.0.1:45123/json | 1260.25 |
+| node | 100 | http://127.0.0.1:45123/json | 1222.11 |
+| node | 10 | http://127.0.0.1:45123/compute-prime | 1174.56 |
+| node | 100 | http://127.0.0.1:45123/compute-prime | 1757.04 |
+| deno | 10 | http://127.0.0.1:33003/static/index.html | 773.82 |
+| deno | 100 | http://127.0.0.1:33003/static/index.html | 1172.86 |
+| deno | 10 | http://127.0.0.1:33003/json | 1897.73 |
+| deno | 100 | http://127.0.0.1:33003/json | 1814.57 |
+| deno | 10 | http://127.0.0.1:33003/compute-prime | 2054.43 |
+| deno | 100 | http://127.0.0.1:33003/compute-prime | 2351.26 |
+| bun | 10 | http://127.0.0.1:41007/static/index.html | 1386.19 |
+| bun | 100 | http://127.0.0.1:41007/static/index.html | 2726.65 |
+| bun | 10 | http://127.0.0.1:41007/json | 2306.57 |
+| bun | 100 | http://127.0.0.1:41007/json | 2167.17 |
+| bun | 10 | http://127.0.0.1:41007/compute-prime | 2733.33 |
+| bun | 100 | http://127.0.0.1:41007/compute-prime | 2391.46 |
 
 ## Benchmarks:
 

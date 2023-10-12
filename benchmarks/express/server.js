@@ -17,8 +17,8 @@ app.get('/json', (req, res) => {
 // Simulate CPU-bound operation
 app.get('/compute-prime', (_req, res) => {
     /* Implementation */
-    const toCheck = 263n;
-    if(checkPrime(263n)) {
+    const toCheck = 3000000n;
+    if(checkPrime(3000000n)) {
         res.send(`Prime number ${toCheck} is a prime!`);
     } else {
         res.send(`Prime number ${toCheck} is not a prime!`);

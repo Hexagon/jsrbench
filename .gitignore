@@ -5,3 +5,5 @@ tmp_output*.txt
 
 # Heaviest object in the universe
 node_modules
+
+package-lock.json

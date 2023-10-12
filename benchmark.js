@@ -182,9 +182,15 @@ Siege Version: ${getSiegeVersion()}
     // Generate Markdown for a basic result table
     const tableMarkdown = generateMarkdownTable(allResults);
 
-    // Calculate average scores
+    // Calculate the reference as the highest score
+    const reference = Math.max(...allResults.map((result) => result.TransactionRate));
+
+    // Sort the results by TransactionRate in descending order
+    const sortedResults = allResults.slice().sort((a, b) => b.TransactionRate - a.TransactionRate);
+
+    // Calculate the average scores and differences
     const averageScores = runtimes.reduce((acc, runtime) => {
-        acc[runtime] = calculateAverage(allResults, runtime);
+        acc[runtime] = calculateAverage(sortedResults, runtime, reference);
         return acc;
     }, {});
 
@@ -192,9 +198,7 @@ Siege Version: ${getSiegeVersion()}
     const averageTableMarkdown = `
 | Runtime | Average Transaction Rate | Difference from Reference |
 | --- | --- | --- |
-| Node.js | ${averageScores.node} | ${(averageScores.node / averageScores.deno * 100).toFixed(2)}% |
-| Deno | ${averageScores.deno} | 100% |
-| Bun | ${averageScores.bun} | ${(averageScores.bun / averageScores.deno * 100).toFixed(2)}% |
+${runtimes.map(runtime => `| ${runtime} | ${averageScores[runtime]} | ${((averageScores[runtime] / reference) * 100).toFixed(2)}% |`).join('\n')}
 `;
 
     const outputMarkdown = template.replace('<!BENCHMARKRESULT!>', "```" + header + "```\n\n### Summary\n\n" + averageTableMarkdown + "\n\n### Detailed result\n\n" + tableMarkdown);
