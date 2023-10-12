@@ -38,6 +38,14 @@ jobs:
         with:
           bun-version: 1.x
           bun-repo: 'oven-sh/bun'
+      
+      - name: Install Express Benchmark dependencies
+        run: |
+          cd benchmarks/express
+          npm install
+
+      - name: Run Express Benchmark
+        run: node benchmark.js express
 
       - name: Commit files
         run: |

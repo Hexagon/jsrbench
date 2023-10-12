@@ -5,7 +5,3 @@ tmp_output*.txt
 
 # Heaviest object in the universe
 node_modules
-
-# Lock files
-package-lock.json
-*.lockb
