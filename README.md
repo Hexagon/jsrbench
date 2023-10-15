@@ -15,9 +15,9 @@ Latest results:
 ```
 JavaScript Runtime Benchmark Report
 Benchmark: express
-Date: 2023-10-12
+Date: 2023-10-15
 Node Version: node v20.8.0
-Deno Version: deno 1.37.1 (release, x86_64-unknown-linux-gnu)
+Deno Version: deno 1.37.2 (release, x86_64-unknown-linux-gnu)
 Bun Version: bun v1.0.6
 Siege Version: SIEGE 4.1.7-b5
 ```
@@ -25,35 +25,34 @@ Siege Version: SIEGE 4.1.7-b5
 ### Summary
 
 
-    | Runtime | Average Transaction Rate | Difference from Reference |
-    | --- | --- | --- |
-    | node | 1278.72 | 46.78% |
-| deno | 1677.44 | 61.37% |
-| bun | 2285.23 | 83.61% |
-    
+| Runtime | Average Transaction Rate | Percentage Of Max |
+| --- | --- | --- |
+| bun | 2442.13 | 100% |
+| deno | 1710.95 | 70% |
+| node | 1277.38 | 52% |
 
 ### Detailed result
 
 | Runtime | Concurrency | Endpoint | TransactionRate |
 | --- | --- | --- | --- |
-| node | 10 | http://127.0.0.1:45123/static/index.html | 1297.31 |
-| node | 100 | http://127.0.0.1:45123/static/index.html | 961.06 |
-| node | 10 | http://127.0.0.1:45123/json | 1260.25 |
-| node | 100 | http://127.0.0.1:45123/json | 1222.11 |
-| node | 10 | http://127.0.0.1:45123/compute-prime | 1174.56 |
-| node | 100 | http://127.0.0.1:45123/compute-prime | 1757.04 |
-| deno | 10 | http://127.0.0.1:33003/static/index.html | 773.82 |
-| deno | 100 | http://127.0.0.1:33003/static/index.html | 1172.86 |
-| deno | 10 | http://127.0.0.1:33003/json | 1897.73 |
-| deno | 100 | http://127.0.0.1:33003/json | 1814.57 |
-| deno | 10 | http://127.0.0.1:33003/compute-prime | 2054.43 |
-| deno | 100 | http://127.0.0.1:33003/compute-prime | 2351.26 |
-| bun | 10 | http://127.0.0.1:41007/static/index.html | 1386.19 |
-| bun | 100 | http://127.0.0.1:41007/static/index.html | 2726.65 |
-| bun | 10 | http://127.0.0.1:41007/json | 2306.57 |
-| bun | 100 | http://127.0.0.1:41007/json | 2167.17 |
-| bun | 10 | http://127.0.0.1:41007/compute-prime | 2733.33 |
-| bun | 100 | http://127.0.0.1:41007/compute-prime | 2391.46 |
+| node | 10 | http://127.0.0.1:34565/static/index.html | 894.24 |
+| node | 100 | http://127.0.0.1:34565/static/index.html | 1304.19 |
+| node | 10 | http://127.0.0.1:34565/json | 1297.49 |
+| node | 100 | http://127.0.0.1:34565/json | 1532.61 |
+| node | 10 | http://127.0.0.1:34565/compute-prime | 1267.17 |
+| node | 100 | http://127.0.0.1:34565/compute-prime | 1368.56 |
+| deno | 10 | http://127.0.0.1:39759/static/index.html | 1061.27 |
+| deno | 100 | http://127.0.0.1:39759/static/index.html | 1293.65 |
+| deno | 10 | http://127.0.0.1:39759/json | 1851.59 |
+| deno | 100 | http://127.0.0.1:39759/json | 1942.14 |
+| deno | 10 | http://127.0.0.1:39759/compute-prime | 2102.18 |
+| deno | 100 | http://127.0.0.1:39759/compute-prime | 2014.86 |
+| bun | 10 | http://127.0.0.1:38777/static/index.html | 1904.48 |
+| bun | 100 | http://127.0.0.1:38777/static/index.html | 2162.71 |
+| bun | 10 | http://127.0.0.1:38777/json | 2717.11 |
+| bun | 100 | http://127.0.0.1:38777/json | 2655.78 |
+| bun | 10 | http://127.0.0.1:38777/compute-prime | 2605.17 |
+| bun | 100 | http://127.0.0.1:38777/compute-prime | 2607.56 |
 
 ## Benchmarks:
 

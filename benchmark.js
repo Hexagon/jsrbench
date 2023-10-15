@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 
 const allResults = [];
 
-const SIEGE_TIME = "3S";
+const SIEGE_TIME = "5S";
 const OUTPUT_FOLDER = "result";
 const BENCHMARK_NAME = process.argv[2];
 const TODAY_DATE = new Date().toISOString().split('T')[0];
@@ -175,36 +175,38 @@ Siege Version: ${getSiegeVersion()}
 
     console.log("Writing benchmark result to README.md");
 
-
     // Read template
     const template = await readFileSync('README.template.md', 'utf-8');
 
     // Generate Markdown for a basic result table
     const tableMarkdown = generateMarkdownTable(allResults);
 
-    // Calculate the reference as the highest score
-    const reference = Math.max(...allResults.map((result) => result.TransactionRate));
-
-    // Sort the results by TransactionRate in descending order
-    const sortedResults = allResults.slice().sort((a, b) => b.TransactionRate - a.TransactionRate);
-
-    // Calculate the average scores and differences
-    const averageScores = runtimes.reduce((acc, runtime) => {
-        acc[runtime] = calculateAverage(sortedResults, runtime, reference);
-        return acc;
+    // Calculate the average scores
+    let averageScores = runtimes.map((runtimeName) => {
+        return { 
+            runtime: runtimeName,
+            average: calculateAverage(allResults, runtimeName)
+        };
     }, {});
 
-    // Generate Markdown for the new table
+    // Calculate the difference from max score
+    const maxScore = Math.max(...averageScores.map((result) => result.average));
+    for(const runtime of averageScores) {
+        runtime.difference = (runtime.average / maxScore * 100).toFixed(0);
+    }
+    
+    // Sort the results by TransactionRate in descending order
+    averageScores = averageScores.slice().sort((a, b) => b.average - a.average);
+
+    // Generate Markdown for the new table using sortedRuntimes
     const averageTableMarkdown = `
-| Runtime | Average Transaction Rate | Difference from Reference |
+| Runtime | Average Transaction Rate | Percentage Of Max |
 | --- | --- | --- |
-${runtimes.map(runtime => `| ${runtime} | ${averageScores[runtime]} | ${((averageScores[runtime] / reference) * 100).toFixed(2)}% |`).join('\n')}
-`;
+${averageScores.map(runtime => `| ${runtime.runtime} | ${runtime.average} | ${runtime.difference}% |`).join('\n')}`;
 
     const outputMarkdown = template.replace('<!BENCHMARKRESULT!>', "```" + header + "```\n\n### Summary\n\n" + averageTableMarkdown + "\n\n### Detailed result\n\n" + tableMarkdown);
 
     writeFileSync('README.md', outputMarkdown);
-
 
     console.log(`Benchmarking completed.`);
 };
